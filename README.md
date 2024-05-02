@@ -8,31 +8,51 @@ How to run:
 4. no virtual enviroment needed since dependencies are not stored on device
 5. if issues arise check that you have sqlite
 
-File stucutre guide (Not up to date will update soon - Gaige 05/02/24):
+File stucutre guide (in Root Folder "CSE108-FINAL-PROJECT"):
+
+db:
+
+    -db.js: initializes SQLite database on connects to SQLite database
+
+models:
+
+    -User.js: Defines user table and functions to interact with user table
+
+node_modules: Stores dependencies, dependencies can be up dated by "npm install *the dependencie name*" or "npm install" which updates 
+                all dependencies from packages.json
 
 public: This directory seems to contain all the files that will be served to clients. It includes:
 
-    static: Static files such as CSS and JavaScript files.
+    -css: CSS files for styling.
 
-        css: CSS files for styling.
-            classStyle.css: Css formatting for class selection page
-            gameStyle.css: Css formatting for game page
-            loginStyle.css: Css formatting for login page
+        --classStyle.css: Css formatting for class selection page
+        --gameStyle.css: Css formatting for game page
+        --loginStyle.css: Css formatting for login page
 
-        js: JavaScript files for client-side logic.
-            classJS.js: JavaScript for class selection page
-            gameJS.js: JavaScript for class selection page
-            loginJS.js: JavaScript for class selection page
+    -js: JavaScript files for client-side logic.
+
+        --classJS.js: JavaScript for class selection page
+        --gameJS.js: JavaScript for class selection page
+        --loginJS.js: JavaScript for class selection page
+
+    -images: Stores images for web application
+        --LoginBackground.jpg: Background image for login/signup page
 
 views: .html files
-    class.html: Main html for class selection page
-    game.html: Main html for game page
-    login.html: Main html for login page
 
-server: This directory appears to contain the server-side code of your application. It includes:
-    models: This directory may contain database models or other data-related logic.
-    routes: This directory likely contains route handlers for your server.
-    server.js: This file is the entry point for your Node.js server.
+    -class.html: Main html for class selection page
+    -game.html: Main html for game page
+    -login.html: Main html for login page
 
-README.md: This file typically contains information about your project.
-Requirements.txt: This file might list the dependencies required for your project
+routes: Stores routes for various pages that are imported into server.js
+
+    -classRoutes.js: Stores routes for /class page
+    -gameRoutes.js: Stores routes for /game page
+    -loginRoutes.js: Stores routes for /login page
+    -signupRoutes.js: Stores routes for /signup page
+
+server.js: Initializes the node.js sever, establishes the base route, and imports page specific routes from routes folder
+
+package.json: Stores dependencies (modules) that are needed for the project
+
+Slayerz.sqlite: SQLite database file that stores database tables and their elements
