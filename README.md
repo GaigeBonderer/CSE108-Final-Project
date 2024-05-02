@@ -4,9 +4,12 @@ Final Project for CSE108
 How to run:
 1. Check node_modules folder
 2 (if empty) type "npm install" in terminal
-3. type "npm start" in terminal
+3. type "npm start" in terminal -- *Start here is dependencies are present*
 4. no virtual enviroment needed since dependencies are not stored on device
 5. if issues arise check that you have sqlite
+
+Recomendations:
+- Download DB Browser SQLite to be able to veiw what is stored in the database: https://sqlitebrowser.org/dl/
 
 File stucutre guide (in Root Folder "CSE108-FINAL-PROJECT"):
 
@@ -18,10 +21,10 @@ models:
 
     -User.js: Defines user table and functions to interact with user table
 
-node_modules: Stores dependencies, dependencies can be up dated by "npm install *the dependencie name*" or "npm install" which updates 
+node_modules: Stores dependencies, dependencies can be up dated by "npm install *the dependency name*" or "npm install" which updates 
                 all dependencies from packages.json
 
-public: This directory seems to contain all the files that will be served to clients. It includes:
+public: This directory contains all the front-end files
 
     -css: CSS files for styling.
 
@@ -36,6 +39,7 @@ public: This directory seems to contain all the files that will be served to cli
         --loginJS.js: JavaScript for class selection page
 
     -images: Stores images for web application
+
         --LoginBackground.jpg: Background image for login/signup page
 
 views: .html files

@@ -1,5 +1,6 @@
+// User.js
 const bcrypt = require('bcrypt');
-const { connection: db } = require('../db/db');
+const { db } = require('../db/db');
 
 async function createUser(username, password) {
   const hashedPassword = await bcrypt.hash(password, 12);
@@ -16,12 +17,14 @@ async function createUser(username, password) {
 }
 
 function findUserByUsername(username) {
-  const sql = 'SELECT * FROM users WHERE username = ?';
+  const sql = 'SELECT * FROM users WHERE LOWER(username) = LOWER(?)';
   return new Promise((resolve, reject) => {
     db.get(sql, [username], (error, row) => {
       if (error) {
+        console.error('Database error:', error);
         reject(error);
       } else {
+        console.log('User found:', row);
         resolve(row);
       }
     });
