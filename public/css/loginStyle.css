@@ -1,0 +1,56 @@
+body {
+    font-family: Copperplate, Fantasy;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    background: url('/images/LoginBackground.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.login-container {
+    text-align: center;
+    padding: 40px;
+    background: rgb(124,0,0);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 3px solid black;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    display: inline-block;
+    border: 1px solid black;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background-color: #726E6D;
+    color:black;
+}
+
+.input-group input::placeholder {
+    color: black;
+}
+
+.button-group button {
+    background-color: 	#8B0000;
+    color: white;
+    padding: 10px 20px;
+    margin: 8px 0;
+    border: 2px solid black;
+    cursor: pointer;
+    width: 80%;
+    opacity: 0.9;
+    border-radius: 5px;
+}
+
+.button-group button:hover {
+    opacity: 1;
+}
