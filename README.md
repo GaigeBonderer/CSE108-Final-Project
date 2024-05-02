@@ -1,7 +1,14 @@
 # CSE108-Final-Project
 Final Project for CSE108
 
-File stucutre guide:
+How to run:
+1. Check node_modules folder
+2 (if empty) type "npm install" in terminal
+3. type "npm start" in terminal
+4. no virtual enviroment needed since dependencies are not stored on device
+5. if issues arise check that you have sqlite
+
+File stucutre guide (Not up to date will update soon - Gaige 05/02/24):
 
 public: This directory seems to contain all the files that will be served to clients. It includes:
 
@@ -17,10 +24,10 @@ public: This directory seems to contain all the files that will be served to cli
             gameJS.js: JavaScript for class selection page
             loginJS.js: JavaScript for class selection page
 
-    templates: HTML templates for rendering pages.
-        class.html: Main html for class selection page
-        game.html: Main html for game page
-        login.html: Main html for login page
+views: .html files
+    class.html: Main html for class selection page
+    game.html: Main html for game page
+    login.html: Main html for login page
 
 server: This directory appears to contain the server-side code of your application. It includes:
     models: This directory may contain database models or other data-related logic.
