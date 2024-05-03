@@ -31,22 +31,25 @@ public: This directory contains all the front-end files
         --classStyle.css: Css formatting for class selection page
         --gameStyle.css: Css formatting for game page
         --loginStyle.css: Css formatting for login page
+        --signupStyle.css: Css formatting for signup page
 
     -js: JavaScript files for client-side logic.
 
         --classJS.js: JavaScript for class selection page
-        --gameJS.js: JavaScript for class selection page
-        --loginJS.js: JavaScript for class selection page
+        --gameJS.js: JavaScript for game page
+        --loginJS.js: JavaScript for login page
+        --signupJS.js: JavaScript for signup page
 
     -images: Stores images for web application
 
-        --LoginBackground.jpg: Background image for login/signup page
+        --LoginBackground.jpg: Background image for login/signup/class page
 
 views: .html files
 
-    -class.html: Main html for class selection page
+    -class.ejs: Main html for class selection page (Uses ejs)
     -game.html: Main html for game page
     -login.html: Main html for login page
+    -signup.html: Main html for signup page
 
 routes: Stores routes for various pages that are imported into server.js
 
