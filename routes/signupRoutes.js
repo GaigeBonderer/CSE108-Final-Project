@@ -19,37 +19,14 @@ router.get('/', (req, res) => {
 // Handle signup form submission
 router.post('/', async (req, res) => {
     try {
-        const { username, password } = req.body;
         const userId = await createUser(username, password);
-        console.log('New user created with ID:', userId); // Optional: log the newly created user ID
-        res.redirect('/class');
+        console.log('New user created with ID:', userId);
+        req.session.userId = userId;  // Save new user ID in session
+        res.redirect(`/class/${userId}`);  // Redirect to a personalized class page
     } catch (error) {
         console.error('Signup error:', error);
         res.status(500).send('Error registering new user');
     }
 });
-
-module.exports = router;
-// router.post('/', async (req, res) => {
-//     try {
-//         // console.log(req.body); // Log the request body
-//         const { username, password } = req.body;
-//         const hashedPassword = await bcrypt.hash(password, 10);
-
-//         // Insert new user into the database
-//         const sql = 'INSERT INTO users (username, password) VALUES (?, ?)';
-//         db.run(sql, [username, hashedPassword], function(err) {
-//             if (err) {
-//                 console.error('Signup error:', err);
-//                 res.status(500).send('Error registering new user');
-//             } else {
-//                 res.redirect('/class');
-//             }
-//         });
-//     } catch (error) {
-//         console.error('Signup error:', error);
-//         res.status(500).send('Error registering new user');
-//     }
-// });
 
 module.exports = router;
