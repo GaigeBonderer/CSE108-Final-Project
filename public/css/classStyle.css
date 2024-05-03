@@ -47,6 +47,7 @@ body {
 
 button#enterDungeon {
     padding: 15px 30px;
+    border: 5px solid black;
     font-size: 18px;
     cursor: pointer;
     background-color: rgb(124,0,0);
@@ -59,4 +60,5 @@ button#enterDungeon {
 
 button#enterDungeon:hover {
     background-color: #8B0000;
+    border: 2px solid white;
 }
