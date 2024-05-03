@@ -31,8 +31,21 @@ function findUserByUsername(username) {
   });
 }
 
+function findUserById(userId) {
+  const sql = 'SELECT * FROM users WHERE id = ?';
+  return new Promise((resolve, reject) => {
+      db.get(sql, [userId], (error, row) => {
+          if (error) {
+              reject(error);
+          } else {
+              resolve(row);
+          }
+      });
+  });
+}
+
 async function comparePasswords(plainPassword, hashedPassword) {
   return await bcrypt.compare(plainPassword, hashedPassword);
 }
 
-module.exports = { createUser, findUserByUsername, comparePasswords };
+module.exports = { createUser, findUserByUsername, comparePasswords, findUserById};

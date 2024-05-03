@@ -34,6 +34,7 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 // Views directory
+app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Redirect root to login

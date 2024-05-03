@@ -30,6 +30,7 @@ router.post('/', async (req, res) => {
         }
 
         const passwordMatch = await comparePasswords(password, user.password);
+        
         if (passwordMatch) {
             req.session.userId = user.id;  // Save user ID in session
             res.json({ success: true, redirect: `/class/${user.id}` }); // Redirect to a personalized class page
