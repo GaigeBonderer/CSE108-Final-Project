@@ -13,6 +13,9 @@ Recomendations:
 - Download DB Browser SQLite to be able to veiw what is stored in the database: https://sqlitebrowser.org/dl/
 - For a test user use: username: Slayer, Password: temp123, userID: 1
 
+
+
+
 File stucutre guide (in Root Folder "CSE108-FINAL-PROJECT"):
 
 db:
@@ -41,8 +44,12 @@ public: This directory contains all the front-end files
             ---index.js: holds all scripts for game logic
 
             ---dist: directory used by phase (dont touch)
-            ---scenes: Stores scenes for rendering maps for game
-                ----Files in here are tmeporary currently
+
+            ---resources: store recourses for the game sucha as sprites and sounds
+                ----Knight.png: the greatest sprite art known to man kind, represent the player charater
+
+            ---scenes: Stores scenes for rendering maps and entitiy actions (player Movement)
+                ----MainScene.js: Has main information about player and map
 
         --classJS.js: JavaScript for class selection page
         --gameJS.js: JavaScript for game page

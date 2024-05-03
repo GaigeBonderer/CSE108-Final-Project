@@ -1,14 +1,19 @@
+// index.js
 import Phaser from 'phaser';
 import MainScene from './scenes/MainScene';
 
+// Get the dimensions of the browser window
+const width = window.innerWidth;
+const height = window.innerHeight;
+
 const config = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    width: width,
+    height: height,
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 300 },
+            gravity: { y: 0 },
             debug: false
         }
     },
