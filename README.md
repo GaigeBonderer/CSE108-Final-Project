@@ -4,12 +4,14 @@ Final Project for CSE108
 How to run:
 1. Check node_modules folder
 2 (if empty) type "npm install" in terminal
-3. type "npm start" in terminal -- *Start here is dependencies are present*
-4. no virtual enviroment needed since dependencies are not stored on device
-5. if issues arise check that you have sqlite
+3. type "npm run build-game" in the terminal to initialize the game engine -- *Start here is dependencies are present*
+4. type "npm start" in terminal 
+5. no virtual enviroment needed since dependencies are not stored on device
+6. if issues arise check that you have sqlite
 
 Recomendations:
 - Download DB Browser SQLite to be able to veiw what is stored in the database: https://sqlitebrowser.org/dl/
+- For a test user use: username: Slayer, Password: temp123, userID: 1
 
 File stucutre guide (in Root Folder "CSE108-FINAL-PROJECT"):
 
@@ -34,6 +36,9 @@ public: This directory contains all the front-end files
         --signupStyle.css: Css formatting for signup page
 
     -js: JavaScript files for client-side logic.
+
+        --game:
+            ---index.js: holds all scripts for game logic
 
         --classJS.js: JavaScript for class selection page
         --gameJS.js: JavaScript for game page

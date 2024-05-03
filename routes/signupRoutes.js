@@ -7,7 +7,7 @@ const router = express.Router();
 const { createUser } = require('../models/User');
 const bodyParser = require('body-parser');
 
-// Add body-parser middleware
+// body-parser middleware
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 

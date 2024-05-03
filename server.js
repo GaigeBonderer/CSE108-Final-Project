@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Static files
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Views directory
 app.set('view engine', 'ejs');
