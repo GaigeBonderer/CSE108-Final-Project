@@ -19,6 +19,7 @@ router.get('/', (req, res) => {
 // Handle signup form submission
 router.post('/', async (req, res) => {
     try {
+        const { username, password } = req.body;
         const userId = await createUser(username, password);
         console.log('New user created with ID:', userId);
         req.session.userId = userId;  // Save new user ID in session
