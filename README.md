@@ -40,6 +40,10 @@ public: This directory contains all the front-end files
         --game:
             ---index.js: holds all scripts for game logic
 
+            ---dist: directory used by phase (dont touch)
+            ---scenes: Stores scenes for rendering maps for game
+                ----Files in here are tmeporary currently
+
         --classJS.js: JavaScript for class selection page
         --gameJS.js: JavaScript for game page
         --loginJS.js: JavaScript for login page
