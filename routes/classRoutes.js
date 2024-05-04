@@ -26,8 +26,7 @@ router.get('/:userId', async (req, res) => {
     try {
         const user = await findUserById(req.params.userId);
         if (user) {
-            // Render an EJS template instead of sending JSON
-            res.render('class', { username: user.username });  // Assuming 'class.ejs' is your EJS template
+            res.render('class', { username: user.username });
         } else {
             res.status(404).send('User not found');
         }

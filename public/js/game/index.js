@@ -2,14 +2,15 @@
 import Phaser from 'phaser';
 import MainScene from './scenes/MainScene';
 
-// Get the dimensions of the browser window
-const width = window.innerWidth;
-const height = window.innerHeight;
+// Read data from the HTML element
+const gameContainer = document.getElementById('gameContainer');
+const userId = gameContainer.getAttribute('data-userid');
+const classId = gameContainer.getAttribute('data-classid');
 
 const config = {
     type: Phaser.AUTO,
-    width: width,
-    height: height,
+    width: window.innerWidth,
+    height: window.innerHeight,
     physics: {
         default: 'arcade',
         arcade: {
@@ -17,7 +18,7 @@ const config = {
             debug: false
         }
     },
-    scene: [MainScene]
+    scene: [new MainScene(userId, classId)]
 };
 
 new Phaser.Game(config);
