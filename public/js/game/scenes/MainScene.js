@@ -2,12 +2,20 @@
 import Phaser from 'phaser';
 
 export default class MainScene extends Phaser.Scene {
-    constructor() {
+    constructor(userId, classId) {
         super('MainScene');
+        this.userId = userId;
+        this.classId = classId;
     }
 
     preload() {
-        this.load.image('player', '/js/game/resources/Knight.png');
+        // Load different sprites based on classId as strings
+        const spriteMap = {
+            'Knight': '/js/game/resources/Knight.png',
+            'Ninja': '/js/game/resources/Ninja.png',  // Assume you have a Ninja.png
+            'Viking': '/js/game/resources/Viking.png'  // Assume you have a Viking.png
+        };
+        this.load.image('player', spriteMap[this.classId]);
     }
 
     create() {

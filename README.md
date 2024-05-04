@@ -63,7 +63,7 @@ public: This directory contains all the front-end files
 views: .html files
 
     -class.ejs: Main html for class selection page (Uses ejs)
-    -game.html: Main html for game page
+    -game.ejs: Main html for game page (Uses ejs)
     -login.html: Main html for login page
     -signup.html: Main html for signup page
 

@@ -22,10 +22,8 @@ router.get('/:userId/:classId', (req, res) => {
     const sessionUserId = parseInt(req.session.userId, 10);
     const requestedUserId = parseInt(req.params.userId, 10);
 
-    console.log("Session User ID: ", sessionUserId, "Requested User ID: ", requestedUserId);
-
     if (sessionUserId === requestedUserId) {
-        res.sendFile(path.join(__dirname, '..', 'views', 'game.html'));
+        res.render('game', { userId: requestedUserId, classId: req.params.classId });
     } else {
         res.status(403).send('Unauthorized access');
     }
