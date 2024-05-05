@@ -2,14 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\public",
-    "\\public\\css",
-    "\\public\\images",
     "\\public\\js",
-    "\\public\\static",
-    "\\public\\static\\css",
-    "\\public\\templates",
+    "\\public\\js\\game",
     "\\routes",
     "\\views"
   ],
+  "SelectedNode": "\\public\\js\\game\\index.js",
   "PreviewInSolutionExplorer": false
 }

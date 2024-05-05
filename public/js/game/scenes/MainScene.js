@@ -20,8 +20,7 @@ export default class MainScene extends Phaser.Scene {
 
     create() {
         // Create player sprite
-        this.player = this.physics.add.sprite(100, 100, 'player');
-
+        this.player = this.physics.add.sprite(250, 320, 'player');
         // Set up keyboard input
         this.cursors = this.input.keyboard.addKeys({
             up: Phaser.Input.Keyboard.KeyCodes.W,
@@ -29,9 +28,29 @@ export default class MainScene extends Phaser.Scene {
             left: Phaser.Input.Keyboard.KeyCodes.A,
             right: Phaser.Input.Keyboard.KeyCodes.D
         });
+
+        // Display text to show mouse coordinates
+        this.text = this.add.text(10, 10, 'Mouse X: 0\nMouse Y: 0', { font: '16px Arial', fill: '#ffffff' });
+
+        // Tween for rotating player sprite
+        //AngleTween = this.tweens.add({
+        //    targets: this.player,
+        //    angle: 0,
+        //    ease: "Bounce.easeInOut",
+        //    duration: 500
+        //});
     }
 
     update() {
+        // Store mouse coordinates in variables and displays in text
+        var mouseX = this.input.mousePointer.x;
+        var mouseY = this.input.mousePointer.y;
+
+        this.text.setText('Mouse X: ' + this.input.mousePointer.x + '\nMouse Y: ' + this.input.mousePointer.y);
+
+        const angle = Phaser.Math.Angle.Between(this.player.x, this.player.y, mouseX, mouseY);
+        this.player.setRotation(angle);
+
         // Reset player velocity
         this.player.setVelocity(0);
 
@@ -47,5 +66,11 @@ export default class MainScene extends Phaser.Scene {
         } else if (this.cursors.down.isDown) {
             this.player.setVelocityY(200);
         }
+
+        // On click rotate player, deal damage
+        //this.input.on('pointerdown', () => {
+        //    console.log("click");
+        //    AngleTween.updateTo("angle", 90, true);
+        //});
     }
 }
