@@ -1,0 +1,29 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: darkseagreen;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.option {
+    margin: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 400px; /* Adjust width as needed */
+}
+
+    .option img {
+        max-width: 100%;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }

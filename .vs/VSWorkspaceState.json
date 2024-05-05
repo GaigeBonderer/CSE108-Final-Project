@@ -2,10 +2,14 @@
   "ExpandedNodes": [
     "",
     "\\public",
+    "\\public\\css",
+    "\\public\\images",
+    "\\public\\js",
     "\\public\\static",
     "\\public\\static\\css",
-    "\\public\\static\\js",
-    "\\public\\templates"
+    "\\public\\templates",
+    "\\routes",
+    "\\views"
   ],
   "PreviewInSolutionExplorer": false
 }
