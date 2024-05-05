@@ -3,6 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path'); 
 const pool = require('./db/db'); 
+const session = require('express-session');
 
 // Require Paths to Imported Routes
 const classRoutes = require('./routes/classRoutes');
@@ -11,6 +12,13 @@ const loginRoutes = require('./routes/loginRoutes');
 const signupRoutes = require('./routes/signupRoutes');
 
 const app = express();
+
+app.use(session({
+    secret: 'CSE108-FinalProject',  // secret key for express session
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }  // Set to true if you're using HTTPS
+}));
 
 // Import routes from respective ___Route.js files
 app.use('/class', classRoutes);
@@ -23,9 +31,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Static files
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Views directory
+app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Redirect root to login

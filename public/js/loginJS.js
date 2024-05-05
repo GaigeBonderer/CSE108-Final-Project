@@ -1,7 +1,7 @@
 // loginJS.js
 
 document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the traditional form submission
+    event.preventDefault(); // Prevent the traditional form submission (causing errors in route)
 
     var formData = new FormData(this);
     var encodedData = new URLSearchParams();
@@ -19,9 +19,9 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            window.location.href = data.redirect; // Redirect if login is successful
+            window.location.href = data.redirect; // This should include the user ID now
         } else {
-            alert(data.message); // Show an alert box if there's an error
+            alert(data.message);
         }
     })
     .catch(error => {
