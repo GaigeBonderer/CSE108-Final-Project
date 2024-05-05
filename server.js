@@ -1,9 +1,11 @@
 //server.js
 const express = require('express');
+const http = require('http');
 const bodyParser = require('body-parser');
 const path = require('path'); 
 const pool = require('./db/db'); 
 const session = require('express-session');
+const socketIo = require('socket.io');
 
 // Require Paths to Imported Routes
 const classRoutes = require('./routes/classRoutes');
@@ -12,6 +14,10 @@ const loginRoutes = require('./routes/loginRoutes');
 const signupRoutes = require('./routes/signupRoutes');
 
 const app = express();
+const server = http.createServer(app);
+const io = socketIo(server);
+
+const players = {};
 
 app.use(session({
     secret: 'CSE108-FinalProject',  // secret key for express session
@@ -43,7 +49,56 @@ app.get('/', (req, res) => {
 });
 
 // Server setup
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, () => {
+//     console.log(`Server running on http://localhost:${PORT}`);
+// });
+
+
+io.on('connection', (socket) => {
+    console.log('A user connected:', socket.id);
+
+    // Add new player to the players object
+    players[socket.id] = {
+        playerId: socket.id,
+        x: 100,
+        y: 100,
+    };
+
+    // Broadcast new player to other clients
+    socket.broadcast.emit('playerConnected', players[socket.id]);
+
+    // Send existing players to the new player
+    Object.keys(players).forEach(playerId => {
+        if (playerId !== socket.id) {
+            socket.emit('playerConnected', players[playerId]);
+        }
+    });
+
+    // Listen for player movements
+    socket.on('playerMovement', (movement) => {
+        players[socket.id].x = movement.x;
+        players[socket.id].y = movement.y;
+
+        // Broadcast player movements to other clients
+        socket.broadcast.emit('playerMoved', { playerId: socket.id, x: movement.x, y: movement.y });
+    });
+
+    // Handle player disconnection
+    socket.on('disconnect', () => {
+        console.log('User disconnected:', socket.id);
+
+        // Broadcast player disconnection to other clients
+        socket.broadcast.emit('playerDisconnected', { playerId: socket.id });
+
+        // Remove player from players object
+        delete players[socket.id];
+    });
+});
+
+
+// Server setup
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
