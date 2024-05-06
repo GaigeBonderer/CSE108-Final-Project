@@ -1,22 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\rbara\\Documents\\GitHub\\CSE108-Final-Project\\",
+  "WorkspaceRootPath": "C:\\Users\\rbara\\OneDrive\\Documents\\GitHub\\CSE108-Final-Project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\rbara\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\game\\scenes\\MainScene.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\rbara\\OneDrive\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\game\\scenes\\MainScene.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:public\\js\\game\\scenes\\MainScene.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\rbara\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\loginJS.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:public\\js\\loginJS.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\rbara\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\game\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\rbara\\OneDrive\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\game\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:public\\js\\game\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\rbara\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\classJS.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:public\\js\\classJS.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\rbara\\OneDrive\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\game\\resources\\pixil-frame-0 (3).png||{58961B49-13E0-48C0-9258-13CBC4D40279}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:public\\js\\game\\resources\\pixil-frame-0 (3).png||{58961B49-13E0-48C0-9258-13CBC4D40279}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,15 +22,35 @@
       "DocumentGroups": [
         {
           "DockedWidth": 701,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 0,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainScene.js",
+              "DocumentMoniker": "C:\\Users\\rbara\\OneDrive\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\game\\scenes\\MainScene.js",
+              "RelativeDocumentMoniker": "public\\js\\game\\scenes\\MainScene.js",
+              "ToolTip": "C:\\Users\\rbara\\OneDrive\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\game\\scenes\\MainScene.js",
+              "RelativeToolTip": "public\\js\\game\\scenes\\MainScene.js",
+              "ViewState": "AQIAACYAAAAAAAAAAAAAAD0AAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-05-05T10:05:19.499Z",
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "index.js",
+              "DocumentMoniker": "C:\\Users\\rbara\\OneDrive\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\game\\index.js",
+              "RelativeDocumentMoniker": "public\\js\\game\\index.js",
+              "ToolTip": "C:\\Users\\rbara\\OneDrive\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\game\\index.js",
+              "RelativeToolTip": "public\\js\\game\\index.js",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-05-05T09:01:37.956Z",
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
@@ -45,54 +61,24 @@
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MainScene.js",
-              "DocumentMoniker": "C:\\Users\\rbara\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\game\\scenes\\MainScene.js",
-              "RelativeDocumentMoniker": "public\\js\\game\\scenes\\MainScene.js",
-              "ToolTip": "C:\\Users\\rbara\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\game\\scenes\\MainScene.js",
-              "RelativeToolTip": "public\\js\\game\\scenes\\MainScene.js",
-              "ViewState": "AQIAADcAAAAAAAAAAAAowEsAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-05-05T10:05:19.499Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "loginJS.js",
-              "DocumentMoniker": "C:\\Users\\rbara\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\loginJS.js",
-              "RelativeDocumentMoniker": "public\\js\\loginJS.js",
-              "ToolTip": "C:\\Users\\rbara\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\loginJS.js",
-              "RelativeToolTip": "public\\js\\loginJS.js",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-05-05T10:00:49.435Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "classJS.js",
-              "DocumentMoniker": "C:\\Users\\rbara\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\classJS.js",
-              "RelativeDocumentMoniker": "public\\js\\classJS.js",
-              "ToolTip": "C:\\Users\\rbara\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\classJS.js",
-              "RelativeToolTip": "public\\js\\classJS.js",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-05-05T10:00:47.363Z"
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "index.js",
-              "DocumentMoniker": "C:\\Users\\rbara\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\game\\index.js",
-              "RelativeDocumentMoniker": "public\\js\\game\\index.js",
-              "ToolTip": "C:\\Users\\rbara\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\game\\index.js",
-              "RelativeToolTip": "public\\js\\game\\index.js",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAEAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-05-05T09:01:37.956Z"
+              "Title": "pixil-frame-0 (3).png",
+              "DocumentMoniker": "C:\\Users\\rbara\\OneDrive\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\game\\resources\\pixil-frame-0 (3).png",
+              "RelativeDocumentMoniker": "public\\js\\game\\resources\\pixil-frame-0 (3).png",
+              "ToolTip": "C:\\Users\\rbara\\OneDrive\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\game\\resources\\pixil-frame-0 (3).png",
+              "RelativeToolTip": "public\\js\\game\\resources\\pixil-frame-0 (3).png",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001533|",
+              "WhenOpened": "2024-05-06T01:33:23.299Z",
+              "EditorCaption": ""
             }
           ]
         }

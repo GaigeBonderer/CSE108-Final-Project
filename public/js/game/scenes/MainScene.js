@@ -8,6 +8,10 @@ export default class MainScene extends Phaser.Scene {
         this.classId = classId;
     }
 
+    // making an array that holds all the enemies in the scene
+    EnemyArray = [];
+    zombies;
+
     preload() {
         // Load different sprites based on classId as strings
         const spriteMap = {
@@ -16,11 +20,25 @@ export default class MainScene extends Phaser.Scene {
             'Viking': '/js/game/resources/Viking.png'  // Assume you have a Viking.png
         };
         this.load.image('player', spriteMap[this.classId]);
+        this.load.image('zombie', '/js/game/resources/pixil-frame-0 (3).png');
     }
 
     create() {
+
         // Create player sprite
         this.player = this.physics.add.sprite(250, 320, 'player');
+        this.player.setCollideWorldBounds(true);
+
+        // Spawning zombies and randomizing their locations
+        this.zombies = this.physics.add.group({
+            key: 'zombie',
+            repeat: 5,
+            setXY: { x: 100, y: 420, stepX:150 }
+        });
+        this.zombies.children.iterate(function (child) {
+            console.log('Child X: ' + child.x + ', Child Y: ' + child.y);
+        });
+
         // Set up keyboard input
         this.cursors = this.input.keyboard.addKeys({
             up: Phaser.Input.Keyboard.KeyCodes.W,
@@ -30,15 +48,12 @@ export default class MainScene extends Phaser.Scene {
         });
 
         // Display text to show mouse coordinates
-        this.text = this.add.text(10, 10, 'Mouse X: 0\nMouse Y: 0', { font: '16px Arial', fill: '#ffffff' });
+        this.mouseText = this.add.text(10, 10, 'Mouse X: 0\nMouse Y: 0', { font: '16px Arial', fill: '#ffffff' });
+        this.enemyText = this.add.text(10, 50, 'Number of Enemies: 0', { font: '16px Arial', fill: '#ffffff' });
 
-        // Tween for rotating player sprite
-        //AngleTween = this.tweens.add({
-        //    targets: this.player,
-        //    angle: 0,
-        //    ease: "Bounce.easeInOut",
-        //    duration: 500
-        //});
+        // adding enemies to world
+        this.EnemyArray[0] = this.physics.add.sprite(250, 420, 'zombie');
+        this.EnemyArray[1] = this.physics.add.sprite(350, 420, 'zombie');
     }
 
     update() {
@@ -46,13 +61,17 @@ export default class MainScene extends Phaser.Scene {
         var mouseX = this.input.mousePointer.x;
         var mouseY = this.input.mousePointer.y;
 
-        this.text.setText('Mouse X: ' + this.input.mousePointer.x + '\nMouse Y: ' + this.input.mousePointer.y);
+        //update text information
+        this.mouseText.setText('Mouse X: ' + this.input.mousePointer.x + '\nMouse Y: ' + this.input.mousePointer.y);
+        this.enemyText.setText('Number of enemies: ' + this.EnemyArray.length);
 
+        // rotate player so that they face cursor
         const angle = Phaser.Math.Angle.Between(this.player.x, this.player.y, mouseX, mouseY);
         this.player.setRotation(angle);
 
-        // Reset player velocity
+        // Reset player and enemy velocities
         this.player.setVelocity(0);
+        this.EnemyArray[0].setVelocity(0);
 
         // Handle keyboard input for movement
         if (this.cursors.left.isDown) {
@@ -60,17 +79,10 @@ export default class MainScene extends Phaser.Scene {
         } else if (this.cursors.right.isDown) {
             this.player.setVelocityX(200);
         }
-
         if (this.cursors.up.isDown) {
             this.player.setVelocityY(-200);
         } else if (this.cursors.down.isDown) {
             this.player.setVelocityY(200);
         }
-
-        // On click rotate player, deal damage
-        //this.input.on('pointerdown', () => {
-        //    console.log("click");
-        //    AngleTween.updateTo("angle", 90, true);
-        //});
     }
 }

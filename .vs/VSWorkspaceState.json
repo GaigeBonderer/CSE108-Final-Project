@@ -4,6 +4,7 @@
     "\\public",
     "\\public\\js",
     "\\public\\js\\game",
+    "\\public\\js\\game\\scenes",
     "\\routes",
     "\\views"
   ],
