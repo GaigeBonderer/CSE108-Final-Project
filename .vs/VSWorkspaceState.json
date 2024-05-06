@@ -4,10 +4,11 @@
     "\\public",
     "\\public\\js",
     "\\public\\js\\game",
+    "\\public\\js\\game\\resources",
     "\\public\\js\\game\\scenes",
     "\\routes",
     "\\views"
   ],
-  "SelectedNode": "\\public\\js\\game\\index.js",
+  "SelectedNode": "\\server.js",
   "PreviewInSolutionExplorer": false
 }
