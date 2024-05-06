@@ -65,6 +65,10 @@ io.on('connection', (socket) => {
         y: 100,
     };
 
+    socket.on('spawn', () => {
+        socket.emit('init', socket.id);
+    })
+
     // Broadcast new player to other clients
     socket.broadcast.emit('playerConnected', players[socket.id]);
 
@@ -77,12 +81,23 @@ io.on('connection', (socket) => {
 
     // Listen for player movements
     socket.on('playerMovement', (movement) => {
-        players[socket.id].x = movement.x;
-        players[socket.id].y = movement.y;
-
-        // Broadcast player movements to other clients
-        socket.broadcast.emit('playerMoved', { playerId: socket.id, x: movement.x, y: movement.y });
+        if (players[socket.id]) {
+            players[socket.id].x = movement.x;
+            players[socket.id].y = movement.y;
+    
+            // Broadcast player movements to other clients
+            socket.broadcast.emit('playerMoved', { playerId: socket.id, x: movement.x, y: movement.y });
+        }
     });
+
+    socket.on('playerDied', (data) => {
+        const killedPlayerId = data.playerId;
+        console.log(killedPlayerId);
+        // Broadcast player death to all clients
+        socket.broadcast.emit('playerDied', { playerId: killedPlayerId });
+        delete players[killedPlayerId];
+    });
+
 
     // Handle player disconnection
     socket.on('disconnect', () => {
@@ -95,7 +110,6 @@ io.on('connection', (socket) => {
         delete players[socket.id];
     });
 });
-
 
 // Server setup
 const PORT = process.env.PORT || 3000;

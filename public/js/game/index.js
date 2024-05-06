@@ -4,7 +4,7 @@ import MainScene from './scenes/MainScene';
 
 // Read data from the HTML element
 const gameContainer = document.getElementById('gameContainer');
-// const userId = gameContainer.getAttribute('data-userid');
+const userId = gameContainer.getAttribute('data-userid');
 const classId = gameContainer.getAttribute('data-classid');
 
 const config = {
@@ -18,7 +18,7 @@ const config = {
             debug: false
         }
     },
-    scene: [new MainScene(classId)]
+    scene: [new MainScene(userId, classId)]
 };
 
 new Phaser.Game(config);
