@@ -31,7 +31,7 @@ h1 {
     border: 1px solid black;
     box-sizing: border-box;
     border-radius: 5px;
-    background-color: #726E6D;
+    background-color: #c4c0bf;
     color:black;
 }
 
@@ -40,7 +40,7 @@ h1 {
 }
 
 .button-group button {
-    background-color: 	#8B0000;
+    background-color: 	#301818;
     color: white;
     padding: 10px 20px;
     margin: 8px 0;
@@ -53,4 +53,5 @@ h1 {
 
 .button-group button:hover {
     opacity: 1;
+    background-color:black;
 }
