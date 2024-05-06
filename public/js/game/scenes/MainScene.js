@@ -2,6 +2,11 @@
 import Phaser from 'phaser';
 
 export default class MainScene extends Phaser.Scene {
+    // globals
+    zombies;
+    zombArray = [];
+    maxZombies = 2;
+
     constructor(userId, classId) {
         super('MainScene');
         this.userId = userId;
@@ -37,16 +42,16 @@ export default class MainScene extends Phaser.Scene {
             'Viking': '/js/game/resources/Viking.png'  // Assume you have a Viking.png
         };
         this.load.image('player', spriteMap[this.classId]);
+        this.load.image('zombie', '/js/game/resources/Zombie.png');
     }
 
     create() {
         // Listen for player movements from the server
         this.socket = io();
 
-
-
         // Create player sprite
-        this.player = this.physics.add.sprite(100, 100, 'player');
+        this.player = this.physics.add.sprite(this.game.config.width / 2, this.game.config.height / 2, 'player');
+        this.player.setCollideWorldBounds(true);
         this.player.hp = this.playerHP;
         this.player.setSize(64, 64);
         this.physics.world.enable(this.player);
@@ -77,6 +82,14 @@ export default class MainScene extends Phaser.Scene {
                 player.body.stop(); // Stop player movement
             });
         });
+
+        // Spawning zombies and randomizing their locations
+        this.zombies = this.physics.add.group();
+        this.spawnZombies(this.maxZombies);
+        this.zombArray = this.zombies.getChildren();
+
+        // Set collision between player and zombies
+        this.physics.add.collider(this.player, this.zombies);
 
         // Set up keyboard input
         this.cursors = this.input.keyboard.addKeys({
@@ -126,6 +139,8 @@ export default class MainScene extends Phaser.Scene {
                 delete this.players[disconnectInfo.playerId];
             }
         });
+
+        this.enemyText = this.add.text(10, 50, 'Number of Enemies: 0', { font: '16px Arial', fill: '#ffffff' });
     }
 
     attack() {
@@ -156,6 +171,32 @@ export default class MainScene extends Phaser.Scene {
     }
 
     update() {
+        // Store mouse coordinates in variables and displays in text
+        var mouseX = this.input.mousePointer.x;
+        var mouseY = this.input.mousePointer.y;
+
+        //update text information
+        this.enemyText.setText('Number of enemies: ' + this.zombies.countActive(true));
+
+        // check to see if spawning a zombie is needed
+        if (this.zombies.countActive(true) < this.maxZombies) {
+            var numZomNeeded = this.maxZombies - this.zombies.countActive(true)
+            this.spawnZombies(numZomNeeded);
+        }
+
+        // rotate player so that they face cursor
+        const angle = Phaser.Math.Angle.Between(this.player.x, this.player.y, mouseX, mouseY);
+        this.player.setRotation(angle);
+
+        // have the zombies follow the player
+        for (var i = 0; i < this.zombArray.length; i++) {
+            const zombAng = Phaser.Math.Angle.Between(this.zombArray[i].x, this.zombArray[i].y, this.player.x, this.player.y);
+            var veloX = Math.cos(zombAng) * 100;
+            var veloY = Math.sin(zombAng) * 100;
+            this.zombArray[i].setRotation(zombAng);
+            this.zombArray[i].setVelocity(veloX, veloY);
+        }
+
         // Handle keyboard input for movement
         if (this.cursors.left.isDown) {
             this.player.setVelocityX(-200);
@@ -175,5 +216,32 @@ export default class MainScene extends Phaser.Scene {
 
         // Emit player movement to the server
         this.socket.emit('playerMovement', { x: this.player.x, y: this.player.y });
+    }
+
+    zombieCollisionHandler(zombie1, zombie2) {
+        // Calculate the angle between the two zombies
+        var angle = Phaser.Math.Angle.Between(zombie1.x, zombie1.y, zombie2.x, zombie2.y);
+
+        // Move the zombies away from each other
+        var distance = 50; // Adjust the distance as needed
+        var velocityX1 = Math.cos(angle) * distance;
+        var velocityY1 = Math.sin(angle) * distance;
+        var velocityX2 = Math.cos(angle + Math.PI) * distance;
+        var velocityY2 = Math.sin(angle + Math.PI) * distance;
+
+        zombie1.setVelocity(velocityX1, velocityY1);
+        zombie2.setVelocity(velocityX2, velocityY2);
+    }
+
+    // Helper Function to spawn Zombies
+    spawnZombies(count) {
+        // Spawn enemies randomly within the display window
+        for (var i = 0; i < count; i++) {
+            var x = Phaser.Math.Between(150, this.game.config.width - 150);
+            var y = Phaser.Math.Between(150, this.game.config.height - 150);
+
+            var zombie = this.zombies.create(x, y, 'zombie');
+            zombie.setCollideWorldBounds(true);
+        }
     }
 }
