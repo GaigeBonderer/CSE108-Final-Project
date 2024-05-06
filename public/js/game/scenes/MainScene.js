@@ -43,7 +43,8 @@ export default class MainScene extends Phaser.Scene {
         // Listen for player movements from the server
         this.socket = io();
 
-
+        //background color
+        this.cameras.main.setBackgroundColor(0x90EE90); //green
 
         // Create player sprite
         this.player = this.physics.add.sprite(100, 100, 'player');
