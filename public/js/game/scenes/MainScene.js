@@ -15,7 +15,8 @@ export default class MainScene extends Phaser.Scene {
         this.classId = classId;
         this.players = {};
         this.playerHP = this.getPlayerHP(classId);
-        this.playerDamage = this.getPlayerDamage(classId);    
+        this.playerDamage = this.getPlayerDamage(classId);
+        this.isAttacking = false;  // Flag to control player rotation    
     }
 
     getPlayerHP(classId) {
@@ -101,7 +102,7 @@ export default class MainScene extends Phaser.Scene {
             otherPlayer.playerId = playerInfo.playerId;
             this.physics.world.enable(otherPlayer);
             this.players[playerInfo.playerId] = otherPlayer;
-            console.log(this.players[playerInfo.playerId]);
+            //console.log(this.players[playerInfo.playerId]);
 
 
             this.physics.add.overlap(this.player, Object.values(this.players), (player, otherPlayer) => {
@@ -161,11 +162,11 @@ export default class MainScene extends Phaser.Scene {
             // console.log(data.playerId);
             // console.log(this.player.playerId);
 
-            console.log("Plaer has Died FUNCTION ---------------------");
+            //console.log("Plaer has Died FUNCTION ---------------------");
 
             if (data.playerId == this.player.playerId) {
 
-                console.log("Plaer has Died REDIRECT ---------------------");
+                //console.log("Plaer has Died REDIRECT ---------------------");
 
                 // Redirect the killed player to '/class/{user.id}'
                 window.location.href = `/class/${this.userId}`;
@@ -185,13 +186,19 @@ export default class MainScene extends Phaser.Scene {
     }
 
     attack() {
-        // Limit player attack rate to once per second
         if (!this.lastAttack || this.time.now - this.lastAttack >= 1000) {
-            console.log(this.player.playerId);
-            console.log('attack');
+            this.lastAttack = this.time.now;
+            this.isAttacking = true;  // Disable mouse rotation
+            this.tweenPlayerAttackRotation(); // Trigger the rotation animation
 
+            //console.log(this.player.playerId);
+            //console.log('attack');
+    
             // Set last attack time
             this.lastAttack = this.time.now;
+    
+            // Animate the player rotation during the attack
+            this.tweenPlayerAttackRotation();
     
             // Find any entity within attack range
             const entitiesInRange = Object.values(this.players).filter(player => {
@@ -211,6 +218,20 @@ export default class MainScene extends Phaser.Scene {
         }
     }
 
+    tweenPlayerAttackRotation() {
+        const originalRotation = this.player.rotation;
+        this.tweens.add({
+            targets: this.player,
+            rotation: originalRotation + Phaser.Math.DegToRad(90),
+            duration: 50,
+            ease: 'Sine.easeOut',
+            yoyo: true,
+            onComplete: () => {
+                this.isAttacking = false;  // Re-enable mouse rotation
+            }
+        });
+    }
+
     update() {
         // Store mouse coordinates in variables and displays in text
         var mouseX = this.input.mousePointer.x;
@@ -225,8 +246,10 @@ export default class MainScene extends Phaser.Scene {
         
 
         // rotate player so that they face cursor
-        const angle = Phaser.Math.Angle.Between(this.player.x, this.player.y, mouseX, mouseY);
-        this.player.setRotation(angle);
+        if (!this.isAttacking) {
+            const angle = Phaser.Math.Angle.Between(this.player.x, this.player.y, mouseX, mouseY);
+            this.player.setRotation(angle);
+        }
 
         // check to see if spawning a zombie is needed
         if (this.zombies.countActive(true) < this.maxZombies) {
@@ -335,10 +358,10 @@ class Zombie extends Phaser.Physics.Arcade.Sprite {
             const distance = Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y);
             if (distance <= 128) { // Check if within attack range
                 this.lastAttack = this.scene.time.now; // Update last attack time
-                console.log('Zombie attacks player!');
+                //console.log('Zombie attacks player!');
                 player.hp -= this.damage;
                 if (player.hp <= 0) {
-                    console.log(`Player ${player.playerId} is dead!`);
+                    //console.log(`Player ${player.playerId} is dead!`);
                     //his.scene.players[player.playerId].destroy();
                     delete this.scene.players[player.playerId];
                     this.scene.socket.emit('playerDied', { playerId: player.playerId });
