@@ -6,6 +6,8 @@ export default class MainScene extends Phaser.Scene {
     zombies;
     zombArray = [];
     maxZombies = 2;
+    zombHealth = 60;
+    zombDmg = 5;
 
     constructor(userId, classId) {
         super('MainScene');
@@ -18,7 +20,7 @@ export default class MainScene extends Phaser.Scene {
 
     getPlayerHP(classId) {
         const hpMap = {
-            'Knight': 100,
+            'Knight': 1,
             'Ninja': 80,
             'Viking': 120
         };
@@ -49,8 +51,12 @@ export default class MainScene extends Phaser.Scene {
         // Listen for player movements from the server
         this.socket = io();
 
+        // spawn coordinates for players
+        var startX = (this.game.config.width / 2) + Phaser.Math.Between(-200, 200);
+        var startY = (this.game.config.height / 2) + Phaser.Math.Between(-200, 200);
+
         // Create player sprite
-        this.player = this.physics.add.sprite(this.game.config.width / 2, this.game.config.height / 2, 'player');
+        this.player = this.physics.add.sprite(startX, startY, 'player');
         this.player.setCollideWorldBounds(true);
         this.player.hp = this.playerHP;
         this.player.setSize(64, 64);
@@ -75,6 +81,7 @@ export default class MainScene extends Phaser.Scene {
             this.physics.world.enable(otherPlayer);
             this.players[playerInfo.playerId] = otherPlayer;
             console.log(this.players[playerInfo.playerId]);
+
 
             this.physics.add.overlap(this.player, Object.values(this.players), (player, otherPlayer) => {
                 // Move the player back to its previous position to prevent passing through
@@ -121,6 +128,7 @@ export default class MainScene extends Phaser.Scene {
         this.input.on('pointerdown', (pointer) => {
             if (pointer.leftButtonDown()) {
                 this.attack();
+                this.attackZombies();
             }
         });
 
@@ -178,6 +186,9 @@ export default class MainScene extends Phaser.Scene {
         //update text information
         this.enemyText.setText('Number of enemies: ' + this.zombies.countActive(true));
 
+        // Check if any zombies are colliding with the player
+        this.physics.overlap(this.player, this.zombies, this.handleZombieCollision, null, this);
+
         // check to see if spawning a zombie is needed
         if (this.zombies.countActive(true) < this.maxZombies) {
             var numZomNeeded = this.maxZombies - this.zombies.countActive(true)
@@ -188,14 +199,10 @@ export default class MainScene extends Phaser.Scene {
         const angle = Phaser.Math.Angle.Between(this.player.x, this.player.y, mouseX, mouseY);
         this.player.setRotation(angle);
 
-        // have the zombies follow the player
-        for (var i = 0; i < this.zombArray.length; i++) {
-            const zombAng = Phaser.Math.Angle.Between(this.zombArray[i].x, this.zombArray[i].y, this.player.x, this.player.y);
-            var veloX = Math.cos(zombAng) * 100;
-            var veloY = Math.sin(zombAng) * 100;
-            this.zombArray[i].setRotation(zombAng);
-            this.zombArray[i].setVelocity(veloX, veloY);
-        }
+        this.zombies.getChildren().forEach(zombie => {
+            zombie.updateVelocity(this.player);
+        });
+
 
         // Handle keyboard input for movement
         if (this.cursors.left.isDown) {
@@ -218,19 +225,28 @@ export default class MainScene extends Phaser.Scene {
         this.socket.emit('playerMovement', { x: this.player.x, y: this.player.y });
     }
 
-    zombieCollisionHandler(zombie1, zombie2) {
-        // Calculate the angle between the two zombies
-        var angle = Phaser.Math.Angle.Between(zombie1.x, zombie1.y, zombie2.x, zombie2.y);
+    attackZombies() {
+        // Find any zombies within attack range
+        const zombiesInRange = this.zombies.getChildren().filter(zombie => {
+            const distance = Phaser.Math.Distance.Between(this.player.x, this.player.y, zombie.x, zombie.y);
+            return distance <= 128; // Assuming 128 units is your attack range
+        });
 
-        // Move the zombies away from each other
-        var distance = 50; // Adjust the distance as needed
-        var velocityX1 = Math.cos(angle) * distance;
-        var velocityY1 = Math.sin(angle) * distance;
-        var velocityX2 = Math.cos(angle + Math.PI) * distance;
-        var velocityY2 = Math.sin(angle + Math.PI) * distance;
-
-        zombie1.setVelocity(velocityX1, velocityY1);
-        zombie2.setVelocity(velocityX2, velocityY2);
+        // Apply damage to zombies in range
+        zombiesInRange.forEach(zombie => {
+            zombie.health -= this.playerDamage;
+            if (zombie.health <= 0) {
+                // Destroy the zombie
+                zombie.destroy();
+                // Optionally, you may want to remove the zombie from any management system you have
+                // For example, if you're keeping track of zombies in an array, remove it from there
+                const index = this.zombArray.indexOf(zombie);
+                if (index !== -1) {
+                    this.zombArray.splice(index, 1);
+                }
+                // Optionally, emit an event to notify other players or the server that the zombie died
+            }
+        });
     }
 
     // Helper Function to spawn Zombies
@@ -240,8 +256,33 @@ export default class MainScene extends Phaser.Scene {
             var x = Phaser.Math.Between(150, this.game.config.width - 150);
             var y = Phaser.Math.Between(150, this.game.config.height - 150);
 
-            var zombie = this.zombies.create(x, y, 'zombie');
-            zombie.setCollideWorldBounds(true);
+            var zombie = new Zombie(this, x, y);
+
+            this.zombies.add(zombie);
         }
     }
+}
+
+// Define your custom Zombie class
+class Zombie extends Phaser.Physics.Arcade.Sprite {
+    constructor(scene, x, y) {
+        super(scene, x, y, 'zombie'); // Assuming 'zombie' is the key for your zombie sprite
+        scene.physics.world.enable(this);
+        scene.add.existing(this);
+
+        this.health = 60; // Initial health of the zombie
+        this.damage = 5; // Amount of damage the zombie inflicts
+
+        // Enable collision with world bounds for the zombie
+        this.body.setCollideWorldBounds(true);
+    }
+
+    updateVelocity(player) {
+        const zombAng = Phaser.Math.Angle.Between(this.x, this.y, player.x, player.y);
+        var veloX = Math.cos(zombAng) * 100;
+        var veloY = Math.sin(zombAng) * 100;
+        this.setRotation(zombAng);
+        this.setVelocity(veloX, veloY);
+    }
+    // You can add more methods here for specific zombie behavior
 }
