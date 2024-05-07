@@ -20,7 +20,7 @@ export default class MainScene extends Phaser.Scene {
 
     getPlayerHP(classId) {
         const hpMap = {
-            'Knight': 1,
+            'Knight': 100,
             'Ninja': 80,
             'Viking': 120
         };
@@ -35,6 +35,21 @@ export default class MainScene extends Phaser.Scene {
         };
         return damageMap[classId];
     }
+
+    // handleZombieCollision(player, zombie) {
+    //     // Reduce player health
+    //     player.hp -= zombie.damage;
+    //     console.log("Zombie ATTACK! Player HP: ", player.hp); // Notify when Zombie attacks
+    
+    //     // Check if player is dead
+    //     if (player.hp <= 0) {
+    //         console.log("Player Is Dead! Player: ", this.userId); // Notify when player dies
+    //         // Emit death event to server
+    //         // this.players[entity.playerId].destroy();
+    //         // delete this.players[entity.playerId];
+    //         this.socket.emit('playerDied', { playerId: this.player.playerId });
+    //     }
+    // }
 
     preload() {
         // Load different sprites based on classId as strings
@@ -133,9 +148,15 @@ export default class MainScene extends Phaser.Scene {
         });
 
         this.socket.on('playerDied', (data) => {
-            console.log(data.playerId);
-            console.log(this.player.playerId);
+            // console.log(data.playerId);
+            // console.log(this.player.playerId);
+
+            console.log("Plaer has Died FUNCTION ---------------------");
+
             if (data.playerId == this.player.playerId) {
+
+                console.log("Plaer has Died REDIRECT ---------------------");
+
                 // Redirect the killed player to '/class/{user.id}'
                 window.location.href = `/class/${this.userId}`;
             }
@@ -149,6 +170,8 @@ export default class MainScene extends Phaser.Scene {
         });
 
         this.enemyText = this.add.text(10, 50, 'Number of Enemies: 0', { font: '16px Arial', fill: '#ffffff' });
+
+        
     }
 
     attack() {
@@ -201,6 +224,7 @@ export default class MainScene extends Phaser.Scene {
 
         this.zombies.getChildren().forEach(zombie => {
             zombie.updateVelocity(this.player);
+            zombie.attack(this.player); // Zombie attacks players
         });
 
 
@@ -261,6 +285,9 @@ export default class MainScene extends Phaser.Scene {
             this.zombies.add(zombie);
         }
     }
+
+    
+
 }
 
 // Define your custom Zombie class
@@ -272,6 +299,8 @@ class Zombie extends Phaser.Physics.Arcade.Sprite {
 
         this.health = 60; // Initial health of the zombie
         this.damage = 5; // Amount of damage the zombie inflicts
+        this.lastAttack = 0; // Timestamp of the last attack
+        this.attackRate = 1000; // One attack per 1000 milliseconds
 
         // Enable collision with world bounds for the zombie
         this.body.setCollideWorldBounds(true);
@@ -284,5 +313,23 @@ class Zombie extends Phaser.Physics.Arcade.Sprite {
         this.setRotation(zombAng);
         this.setVelocity(veloX, veloY);
     }
-    // You can add more methods here for specific zombie behavior
+    
+    attack(player) {
+        if (this.scene.time.now - this.lastAttack >= this.attackRate) {
+            const distance = Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y);
+            if (distance <= 128) { // Check if within attack range
+                this.lastAttack = this.scene.time.now; // Update last attack time
+                console.log('Zombie attacks player!');
+                player.hp -= this.damage;
+                if (player.hp <= 0) {
+                    console.log(`Player ${player.playerId} is dead!`);
+                    this.scene.players[player.playerId].destroy();
+                    delete this.scene.players[player.playerId];
+                    this.scene.socket.emit('playerDied', { playerId: player.playerId });
+                    window.location.href = `/class/${this.scene.userId}`; // Redirect if needed
+                }
+            }
+        }
+    }
+
 }
