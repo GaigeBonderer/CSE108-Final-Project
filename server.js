@@ -80,13 +80,20 @@ io.on('connection', (socket) => {
     });
 
     // Listen for player movements
-    socket.on('playerMovement', (movement) => {
+    // Listen for player movements
+    socket.on('playerMovement', (data) => {
         if (players[socket.id]) {
-            players[socket.id].x = movement.x;
-            players[socket.id].y = movement.y;
-    
-            // Broadcast player movements to other clients
-            socket.broadcast.emit('playerMoved', { playerId: socket.id, x: movement.x, y: movement.y });
+            players[socket.id].x = data.x;
+            players[socket.id].y = data.y;
+            players[socket.id].rotation = data.rotation;  // Ensure this line is correct
+
+            // Broadcast player movements to other clients, including rotation
+            socket.broadcast.emit('playerMoved', {
+                playerId: socket.id,
+                x: data.x,
+                y: data.y,
+                rotation: data.rotation
+            });
         }
     });
 

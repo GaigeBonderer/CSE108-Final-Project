@@ -127,23 +127,27 @@ export default class MainScene extends Phaser.Scene {
             right: Phaser.Input.Keyboard.KeyCodes.D
         });
 
-        this.socket.on('playerMoved', (movement) => {
-            if (this.players[movement.playerId]) {
-                this.players[movement.playerId].setPosition(movement.x, movement.y);
+        this.socket.on('playerMoved', (data) => {
+            if (this.players[data.playerId]) {
+                const otherPlayer = this.players[data.playerId];
+                otherPlayer.x = data.x;
+                otherPlayer.y = data.y;
+                otherPlayer.rotation = data.rotation;  // Update rotation here
             } else {
-                const newPlayer = this.physics.add.sprite(movement.x, movement.y, 'player');
-                otherPlayer.hp = this.playerHP;
+                // If the player does not exist, create a new one
+                const newPlayer = this.physics.add.sprite(data.x, data.y, 'player');
+                newPlayer.rotation = data.rotation;
                 newPlayer.setSize(64, 64);
+                newPlayer.setCollideWorldBounds(true);
                 this.physics.world.enable(newPlayer);
-                this.players[movement.playerId] = newPlayer;
-
-                this.physics.add.overlap(this.player, Object.values(this.players), (player, otherPlayer) => {
-                    // Move the player back to its previous position to prevent passing through
-                    player.setPosition(player.x - player.body.deltaX(), player.y - player.body.deltaY());
-                    player.body.stop(); // Stop player movement
-                });
+                this.players[data.playerId] = newPlayer;
             }
         });
+
+                // this.physics.add.overlap(this.player, Object.values(this.players), (player, otherPlayer) => {
+                //     // Move the player back to its previous position to prevent passing through
+                //     player.setPosition(player.x - player.body.deltaX(), player.y - player.body.deltaY());
+                //     player.body.stop(); // Stop player movement
 
         // Listen for left click input
         this.input.on('pointerdown', (pointer) => {
@@ -254,7 +258,11 @@ export default class MainScene extends Phaser.Scene {
         }
 
         // Emit player movement to the server
-        this.socket.emit('playerMovement', { x: this.player.x, y: this.player.y });
+        this.socket.emit('playerMovement', {
+            x: this.player.x,
+            y: this.player.y,
+            rotation: this.player.rotation
+        });
     }
 
     attackZombies() {
