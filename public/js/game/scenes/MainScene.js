@@ -36,21 +36,6 @@ export default class MainScene extends Phaser.Scene {
         return damageMap[classId];
     }
 
-    // handleZombieCollision(player, zombie) {
-    //     // Reduce player health
-    //     player.hp -= zombie.damage;
-    //     console.log("Zombie ATTACK! Player HP: ", player.hp); // Notify when Zombie attacks
-    
-    //     // Check if player is dead
-    //     if (player.hp <= 0) {
-    //         console.log("Player Is Dead! Player: ", this.userId); // Notify when player dies
-    //         // Emit death event to server
-    //         // this.players[entity.playerId].destroy();
-    //         // delete this.players[entity.playerId];
-    //         this.socket.emit('playerDied', { playerId: this.player.playerId });
-    //     }
-    // }
-
     preload() {
         // Load different sprites based on classId as strings
         const spriteMap = {
@@ -96,7 +81,6 @@ export default class MainScene extends Phaser.Scene {
             this.physics.world.enable(otherPlayer);
             this.players[playerInfo.playerId] = otherPlayer;
             console.log(this.players[playerInfo.playerId]);
-
 
             this.physics.add.overlap(this.player, Object.values(this.players), (player, otherPlayer) => {
                 // Move the player back to its previous position to prevent passing through
@@ -148,14 +132,8 @@ export default class MainScene extends Phaser.Scene {
         });
 
         this.socket.on('playerDied', (data) => {
-            // console.log(data.playerId);
-            // console.log(this.player.playerId);
-
-            console.log("Plaer has Died FUNCTION ---------------------");
 
             if (data.playerId == this.player.playerId) {
-
-                console.log("Plaer has Died REDIRECT ---------------------");
 
                 // Redirect the killed player to '/class/{user.id}'
                 window.location.href = `/class/${this.userId}`;
@@ -169,9 +147,8 @@ export default class MainScene extends Phaser.Scene {
             }
         });
 
+        this.healthText = this.add.text(10, 10, 'Player Health: 0', { font: '16px Arial', fill: '#ffffff' });
         this.enemyText = this.add.text(10, 50, 'Number of Enemies: 0', { font: '16px Arial', fill: '#ffffff' });
-
-        
     }
 
     attack() {
@@ -207,12 +184,11 @@ export default class MainScene extends Phaser.Scene {
         var mouseY = this.input.mousePointer.y;
 
         //update text information
+        this.healthText.setText('Player Heatlth: : ' + this.player.hp);
         this.enemyText.setText('Number of enemies: ' + this.zombies.countActive(true));
 
         // Check if any zombies are colliding with the player
         this.physics.overlap(this.player, this.zombies, this.handleZombieCollision, null, this);
-
-        
 
         // rotate player so that they face cursor
         const angle = Phaser.Math.Angle.Between(this.player.x, this.player.y, mouseX, mouseY);
@@ -228,7 +204,6 @@ export default class MainScene extends Phaser.Scene {
             zombie.updateVelocity(this.player);
             zombie.attack(this.player); // Zombie attacks players
         });
-
 
         // Handle keyboard input for movement
         if (this.cursors.left.isDown) {
@@ -287,9 +262,6 @@ export default class MainScene extends Phaser.Scene {
             this.zombies.add(zombie);
         }
     }
-
-    
-
 }
 
 // Define your custom Zombie class
@@ -310,8 +282,8 @@ class Zombie extends Phaser.Physics.Arcade.Sprite {
 
     updateVelocity(player) {
         const zombAng = Phaser.Math.Angle.Between(this.x, this.y, player.x, player.y);
-        var veloX = Math.cos(zombAng) * 100;
-        var veloY = Math.sin(zombAng) * 100;
+        var veloX = Math.cos(zombAng) * 50;
+        var veloY = Math.sin(zombAng) * 50;
         this.setRotation(zombAng);
         this.setVelocity(veloX, veloY);
     }
@@ -319,7 +291,7 @@ class Zombie extends Phaser.Physics.Arcade.Sprite {
     attack(player) {
         if (this.scene.time.now - this.lastAttack >= this.attackRate) {
             const distance = Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y);
-            if (distance <= 128) { // Check if within attack range
+            if (distance <= 80) { // Check if within attack range
                 this.lastAttack = this.scene.time.now; // Update last attack time
                 console.log('Zombie attacks player!');
                 player.hp -= this.damage;
