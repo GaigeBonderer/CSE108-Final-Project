@@ -16,6 +16,7 @@ export default class MainScene extends Phaser.Scene {
         this.players = {};
         this.playerHP = this.getPlayerHP(classId);
         this.playerDamage = this.getPlayerDamage(classId);
+        this.zombiesKilled = 0;  // Initialize zombie kill counter
         this.isAttacking = false;  // Flag to control player rotation    
     }
 
@@ -182,6 +183,8 @@ export default class MainScene extends Phaser.Scene {
 
         //this.enemyText = this.add.text(10, 50, 'Number of Enemies: 0', { font: '16px Arial', fill: '#ffffff' });
 
+        this.zombiesKilledText = this.add.text(10, 30, 'Zombies Killed: 0', { font: '16px Arial', fill: '#ffffff' });
+
         
     }
 
@@ -308,25 +311,21 @@ export default class MainScene extends Phaser.Scene {
     }
 
     attackZombies() {
-        // Find any zombies within attack range
         const zombiesInRange = this.zombies.getChildren().filter(zombie => {
             const distance = Phaser.Math.Distance.Between(this.player.x, this.player.y, zombie.x, zombie.y);
-            return distance <= 128; // Assuming 128 units is your attack range
+            return distance <= 128;  // Assuming 128 units is your attack range
         });
-
-        // Apply damage to zombies in range
+    
         zombiesInRange.forEach(zombie => {
             zombie.health -= this.playerDamage;
             if (zombie.health <= 0) {
-                // Destroy the zombie
                 zombie.destroy();
-                // Optionally, you may want to remove the zombie from any management system you have
-                // For example, if you're keeping track of zombies in an array, remove it from there
+                this.zombiesKilled++;  // Increment the zombies killed counter
+                this.zombiesKilledText.setText(`Zombies Killed: ${this.zombiesKilled}`);  // Update text on screen
                 const index = this.zombArray.indexOf(zombie);
                 if (index !== -1) {
                     this.zombArray.splice(index, 1);
                 }
-                // Optionally, emit an event to notify other players or the server that the zombie died
             }
         });
     }
@@ -375,7 +374,7 @@ class Zombie extends Phaser.Physics.Arcade.Sprite {
     attack(player) {
         if (this.scene.time.now - this.lastAttack >= this.attackRate) {
             const distance = Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y);
-            if (distance <= 128) { // Check if within attack range
+            if (distance <= 110) { // Check if within attack range
                 this.lastAttack = this.scene.time.now; // Update last attack time
                 //console.log('Zombie attacks player!');
                 player.hp -= this.damage;
