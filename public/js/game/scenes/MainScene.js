@@ -212,15 +212,17 @@ export default class MainScene extends Phaser.Scene {
         // Check if any zombies are colliding with the player
         this.physics.overlap(this.player, this.zombies, this.handleZombieCollision, null, this);
 
+        
+
+        // rotate player so that they face cursor
+        const angle = Phaser.Math.Angle.Between(this.player.x, this.player.y, mouseX, mouseY);
+        this.player.setRotation(angle);
+
         // check to see if spawning a zombie is needed
         if (this.zombies.countActive(true) < this.maxZombies) {
             var numZomNeeded = this.maxZombies - this.zombies.countActive(true)
             this.spawnZombies(numZomNeeded);
         }
-
-        // rotate player so that they face cursor
-        const angle = Phaser.Math.Angle.Between(this.player.x, this.player.y, mouseX, mouseY);
-        this.player.setRotation(angle);
 
         this.zombies.getChildren().forEach(zombie => {
             zombie.updateVelocity(this.player);
@@ -323,7 +325,7 @@ class Zombie extends Phaser.Physics.Arcade.Sprite {
                 player.hp -= this.damage;
                 if (player.hp <= 0) {
                     console.log(`Player ${player.playerId} is dead!`);
-                    this.scene.players[player.playerId].destroy();
+                    //his.scene.players[player.playerId].destroy();
                     delete this.scene.players[player.playerId];
                     this.scene.socket.emit('playerDied', { playerId: player.playerId });
                     window.location.href = `/class/${this.scene.userId}`; // Redirect if needed
