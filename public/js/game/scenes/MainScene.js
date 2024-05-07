@@ -181,7 +181,24 @@ export default class MainScene extends Phaser.Scene {
             }
         });
 
+        
+
         //this.enemyText = this.add.text(10, 50, 'Number of Enemies: 0', { font: '16px Arial', fill: '#ffffff' });
+        //Initialize the text to display player's health
+        this.hpText = this.add.text(10, 10, `HP: ${this.playerHP}`, {
+            font: '16px Arial',
+            fill: '#ffffff'
+        });
+
+        // Update player's health text immediately to reflect the current health
+        this.hpText.setText(`HP: ${this.player.hp}`);
+
+        // Initialize the text to display the number of zombies killed
+        //Position this below the player's health
+        // this.zombiesKilledText = this.add.text(10, 30, 'Zombies Killed: 0', {
+        //     font: '16px Arial',
+        //     fill: '#ffffff'
+        // });
 
         this.zombiesKilledText = this.add.text(10, 30, 'Zombies Killed: 0', { font: '16px Arial', fill: '#ffffff' });
 
@@ -207,39 +224,6 @@ export default class MainScene extends Phaser.Scene {
         });
     }
 
-    // attack() { // attack function with delay
-    //     if (!this.lastAttack || this.time.now - this.lastAttack >= 1000) {
-    //         this.lastAttack = this.time.now;
-    //         this.isAttacking = true;  // Disable mouse rotation
-    //         this.tweenPlayerAttackRotation(); // Trigger the rotation animation
-
-    //         //console.log(this.player.playerId);
-    //         //console.log('attack');
-    
-    //         // Set last attack time
-    //         this.lastAttack = this.time.now;
-    
-    //         // Animate the player rotation during the attack
-    //         this.tweenPlayerAttackRotation();
-    
-    //         // Find any entity within attack range
-    //         const entitiesInRange = Object.values(this.players).filter(player => {
-    //             const distance = Phaser.Math.Distance.Between(this.player.x, this.player.y, player.x, player.y);
-    //             return distance <= 128; // Assuming 128 units is your attack range
-    //         });
-    
-    //         // Apply damage to entities in range
-    //         entitiesInRange.forEach(entity => {
-    //             entity.hp -= this.playerDamage;
-    //             if (entity.hp <= 0) {
-    //                 this.players[entity.playerId].destroy();
-    //                 delete this.players[entity.playerId];
-    //                 this.socket.emit('playerDied', { playerId: entity.playerId });
-    //             }
-    //         });
-    //     }
-    // }
-
     tweenPlayerAttackRotation() {
         const originalRotation = this.player.rotation;
         this.tweens.add({
@@ -258,6 +242,8 @@ export default class MainScene extends Phaser.Scene {
         // Store mouse coordinates in variables and displays in text
         var mouseX = this.input.mousePointer.x;
         var mouseY = this.input.mousePointer.y;
+
+        this.hpText.setText(`HP: ${this.player.hp}`);
 
         //update text information
         //this.enemyText.setText('Number of enemies: ' + this.zombies.countActive(true));
@@ -365,8 +351,8 @@ class Zombie extends Phaser.Physics.Arcade.Sprite {
 
     updateVelocity(player) {
         const zombAng = Phaser.Math.Angle.Between(this.x, this.y, player.x, player.y);
-        var veloX = Math.cos(zombAng) * 100;
-        var veloY = Math.sin(zombAng) * 100;
+        var veloX = Math.cos(zombAng) * 75;
+        var veloY = Math.sin(zombAng) * 75;
         this.setRotation(zombAng);
         this.setVelocity(veloX, veloY);
     }
@@ -374,7 +360,7 @@ class Zombie extends Phaser.Physics.Arcade.Sprite {
     attack(player) {
         if (this.scene.time.now - this.lastAttack >= this.attackRate) {
             const distance = Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y);
-            if (distance <= 110) { // Check if within attack range
+            if (distance <= 80) { // Check if within attack range
                 this.lastAttack = this.scene.time.now; // Update last attack time
                 //console.log('Zombie attacks player!');
                 player.hp -= this.damage;
