@@ -60,9 +60,15 @@ export default class MainScene extends Phaser.Scene {
         };
         this.load.image('player', spriteMap[this.classId]);
         this.load.image('zombie', '/js/game/resources/Zombie.png');
+        this.load.image('dungeonBackground', '/js/game/resources/DungeonBackground.png');
     }
 
     create() {
+
+        //render server background:
+        this.add.image(0, 0, 'dungeonBackground').setOrigin(0, 0).setDisplaySize(this.sys.game.config.width, this.sys.game.config.height);
+
+
         // Listen for player movements from the server
         this.socket = io();
 
