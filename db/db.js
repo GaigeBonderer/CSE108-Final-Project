@@ -9,7 +9,7 @@ db.serialize(() => {
   db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE, password TEXT)");
 });
 
-// Function to close the database connection
+// Close the database connection
 function closeConnection() {
   db.close(err => {
     if (err) {

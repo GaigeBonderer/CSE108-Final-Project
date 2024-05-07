@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Extract userID from the URL (assuming it's always after '/class/')
+    // Extract userID from the URL
     const userId = window.location.pathname.split('/').pop();
 
     // Fetch user data from the server
