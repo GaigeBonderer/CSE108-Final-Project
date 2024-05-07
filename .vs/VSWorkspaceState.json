@@ -5,10 +5,7 @@
     "\\public\\js",
     "\\public\\js\\game",
     "\\public\\js\\game\\resources",
-    "\\public\\js\\game\\scenes",
-    "\\routes",
-    "\\views"
+    "\\public\\js\\game\\scenes"
   ],
-  "SelectedNode": "\\server.js",
   "PreviewInSolutionExplorer": false
 }

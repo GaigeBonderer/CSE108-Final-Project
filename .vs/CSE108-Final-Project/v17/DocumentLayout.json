@@ -3,16 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\rbara\\OneDrive\\Documents\\GitHub\\CSE108-Final-Project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\rbara\\OneDrive\\Documents\\GitHub\\CSE108-Final-Project\\server.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:server.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\rbara\\OneDrive\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\game\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:public\\js\\game\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\rbara\\OneDrive\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\game\\scenes\\MainScene.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:public\\js\\game\\scenes\\MainScene.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\rbara\\OneDrive\\Documents\\GitHub\\CSE108-Final-Project\\server.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:server.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     }
   ],
   "DocumentGroupContainers": [
@@ -21,48 +17,21 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 701,
-          "SelectedChildIndex": 2,
+          "DockedWidth": 1082,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "MainScene.js",
               "DocumentMoniker": "C:\\Users\\rbara\\OneDrive\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\game\\scenes\\MainScene.js",
               "RelativeDocumentMoniker": "public\\js\\game\\scenes\\MainScene.js",
               "ToolTip": "C:\\Users\\rbara\\OneDrive\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\game\\scenes\\MainScene.js",
               "RelativeToolTip": "public\\js\\game\\scenes\\MainScene.js",
-              "ViewState": "AQIAAIoAAAAAAAAAAAAAwKAAAAAAAAAA",
+              "ViewState": "AQIAAMsAAAAAAAAAAAAuwLcAAAAvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-05-05T10:05:19.499Z",
+              "WhenOpened": "2024-05-06T21:36:46.857Z",
               "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "index.js",
-              "DocumentMoniker": "C:\\Users\\rbara\\OneDrive\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\game\\index.js",
-              "RelativeDocumentMoniker": "public\\js\\game\\index.js",
-              "ToolTip": "C:\\Users\\rbara\\OneDrive\\Documents\\GitHub\\CSE108-Final-Project\\public\\js\\game\\index.js",
-              "RelativeToolTip": "public\\js\\game\\index.js",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAEAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-05-05T09:01:37.956Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "server.js",
-              "DocumentMoniker": "C:\\Users\\rbara\\OneDrive\\Documents\\GitHub\\CSE108-Final-Project\\server.js",
-              "RelativeDocumentMoniker": "server.js",
-              "ToolTip": "C:\\Users\\rbara\\OneDrive\\Documents\\GitHub\\CSE108-Final-Project\\server.js",
-              "RelativeToolTip": "server.js",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2024-05-06T09:06:03.532Z",
               "EditorCaption": ""
             },
             {
@@ -80,6 +49,25 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 320,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "server.js",
+              "DocumentMoniker": "C:\\Users\\rbara\\OneDrive\\Documents\\GitHub\\CSE108-Final-Project\\server.js",
+              "RelativeDocumentMoniker": "server.js",
+              "ToolTip": "C:\\Users\\rbara\\OneDrive\\Documents\\GitHub\\CSE108-Final-Project\\server.js",
+              "RelativeToolTip": "server.js",
+              "ViewState": "AQIAAEUAAAAAAAAAAAAAAEQAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2024-05-06T21:36:14.116Z",
+              "EditorCaption": ""
             }
           ]
         }
