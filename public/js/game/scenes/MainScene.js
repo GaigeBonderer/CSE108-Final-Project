@@ -180,7 +180,7 @@ export default class MainScene extends Phaser.Scene {
             }
         });
 
-        this.enemyText = this.add.text(10, 50, 'Number of Enemies: 0', { font: '16px Arial', fill: '#ffffff' });
+        //this.enemyText = this.add.text(10, 50, 'Number of Enemies: 0', { font: '16px Arial', fill: '#ffffff' });
 
         
     }
@@ -257,7 +257,7 @@ export default class MainScene extends Phaser.Scene {
         var mouseY = this.input.mousePointer.y;
 
         //update text information
-        this.enemyText.setText('Number of enemies: ' + this.zombies.countActive(true));
+        //this.enemyText.setText('Number of enemies: ' + this.zombies.countActive(true));
 
         // Check if any zombies are colliding with the player
         this.physics.overlap(this.player, this.zombies, this.handleZombieCollision, null, this);
