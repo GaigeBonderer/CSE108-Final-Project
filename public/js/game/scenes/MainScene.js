@@ -185,38 +185,57 @@ export default class MainScene extends Phaser.Scene {
         
     }
 
-    attack() {
-        if (!this.lastAttack || this.time.now - this.lastAttack >= 1000) {
-            this.lastAttack = this.time.now;
-            this.isAttacking = true;  // Disable mouse rotation
-            this.tweenPlayerAttackRotation(); // Trigger the rotation animation
-
-            //console.log(this.player.playerId);
-            //console.log('attack');
+    attack() {    // Attack function with removed delay
+        this.isAttacking = true;  // Disable mouse rotation
+        this.tweenPlayerAttackRotation(); // Trigger the rotation animation
     
-            // Set last attack time
-            this.lastAttack = this.time.now;
+        const entitiesInRange = Object.values(this.players).filter(player => {
+            const distance = Phaser.Math.Distance.Between(this.player.x, this.player.y, player.x, player.y);
+            return distance <= 128; // Assuming 128 units is your attack range
+        });
     
-            // Animate the player rotation during the attack
-            this.tweenPlayerAttackRotation();
-    
-            // Find any entity within attack range
-            const entitiesInRange = Object.values(this.players).filter(player => {
-                const distance = Phaser.Math.Distance.Between(this.player.x, this.player.y, player.x, player.y);
-                return distance <= 128; // Assuming 128 units is your attack range
-            });
-    
-            // Apply damage to entities in range
-            entitiesInRange.forEach(entity => {
-                entity.hp -= this.playerDamage;
-                if (entity.hp <= 0) {
-                    this.players[entity.playerId].destroy();
-                    delete this.players[entity.playerId];
-                    this.socket.emit('playerDied', { playerId: entity.playerId });
-                }
-            });
-        }
+        entitiesInRange.forEach(entity => {
+            entity.hp -= this.playerDamage;
+            if (entity.hp <= 0) {
+                this.players[entity.playerId].destroy();
+                delete this.players[entity.playerId];
+                this.socket.emit('playerDied', { playerId: entity.playerId });
+            }
+        });
     }
+
+    // attack() { // attack function with delay
+    //     if (!this.lastAttack || this.time.now - this.lastAttack >= 1000) {
+    //         this.lastAttack = this.time.now;
+    //         this.isAttacking = true;  // Disable mouse rotation
+    //         this.tweenPlayerAttackRotation(); // Trigger the rotation animation
+
+    //         //console.log(this.player.playerId);
+    //         //console.log('attack');
+    
+    //         // Set last attack time
+    //         this.lastAttack = this.time.now;
+    
+    //         // Animate the player rotation during the attack
+    //         this.tweenPlayerAttackRotation();
+    
+    //         // Find any entity within attack range
+    //         const entitiesInRange = Object.values(this.players).filter(player => {
+    //             const distance = Phaser.Math.Distance.Between(this.player.x, this.player.y, player.x, player.y);
+    //             return distance <= 128; // Assuming 128 units is your attack range
+    //         });
+    
+    //         // Apply damage to entities in range
+    //         entitiesInRange.forEach(entity => {
+    //             entity.hp -= this.playerDamage;
+    //             if (entity.hp <= 0) {
+    //                 this.players[entity.playerId].destroy();
+    //                 delete this.players[entity.playerId];
+    //                 this.socket.emit('playerDied', { playerId: entity.playerId });
+    //             }
+    //         });
+    //     }
+    // }
 
     tweenPlayerAttackRotation() {
         const originalRotation = this.player.rotation;
